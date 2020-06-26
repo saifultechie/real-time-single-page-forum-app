@@ -4,9 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Model\Category;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Http\Resources\CategoryResource;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
+             /**
+     * Create a new AuthController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('jwt', ['except' => ['index','show']]);
+       // $this->middleware('auth:api', ['except' => ['login']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +28,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return CategoryResource::collection(Category::latest()->get());
     }
 
     /**
@@ -33,9 +47,15 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        // Category::create($request->all());
+
+        $category = new Category;
+        $category->name = $request->name;
+        $category->slug = str_slug($request->name);
+        $category->save();
+        return response(new CategoryResource($category),Response::HTTP_CREATED);
     }
 
     /**
@@ -46,7 +66,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        return new CategoryResource($category);
     }
 
     /**
@@ -69,7 +89,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        
+        $category->update([
+            'name'=>$request->name,
+            'slug'=>str_slug($request->name)
+
+            ]);
+
+        return response(new CategoryResource($category),Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -80,6 +107,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return response(null,Response::HTTP_NO_CONTENT);
     }
 }
