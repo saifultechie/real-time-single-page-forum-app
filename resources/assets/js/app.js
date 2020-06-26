@@ -12,6 +12,7 @@ window.Vue = require('vue');
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import VueSimplemde from 'vue-simplemde';
+import 'material-design-icons-iconfont/dist/material-design-icons.css';
 Vue.use(VueSimplemde)
 
 import User from './Helpers/User.js'

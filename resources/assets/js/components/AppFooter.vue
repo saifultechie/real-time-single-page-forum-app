@@ -1,6 +1,6 @@
 <template>
     <v-footer class="pa-3">
-        Bitfumes
+        saifultech
         <v-spacer></v-spacer>
         <div>&copy; {{ new Date().getFullYear() }}</div>
    </v-footer>

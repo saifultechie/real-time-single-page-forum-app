@@ -1,7 +1,7 @@
 <template>
     <v-toolbar color="indigo" dark>
         <v-toolbar-title>
-            <router-link to="/" class="white--text">Bitfumes</router-link>
+            <router-link to="/" class="white--text">ForumTech</router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <app-notification v-if="loggedIn"></app-notification>

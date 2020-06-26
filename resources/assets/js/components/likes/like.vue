@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-btn icon @click="likeIt">
-            <v-icon :color="color">like</v-icon>{{count}}
+            <v-icon :color="color">favorite</v-icon>{{count}}
         </v-btn>
     </div>
 </template>
